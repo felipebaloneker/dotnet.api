@@ -10,7 +10,7 @@ namespace dotnet.api.Repositorios
         private readonly SistemaTarefasDBContex _dbContext;
         public UsuarioRepositorio(SistemaTarefasDBContex sistemaTarefasDBContex)
         {
-            _dbContext = sistemaTarefasDBContex; 
+            _dbContext = sistemaTarefasDBContex;
         }
         public async Task<UsuarioModel> BuscarPorId(int id)
         {
@@ -19,8 +19,9 @@ namespace dotnet.api.Repositorios
 
         public async Task<List<UsuarioModel>> BuscarTodosUsuarios()
         {
-            return await _dbContext.Usuarios.ToListAsync();
+           return await _dbContext.Usuarios.ToListAsync();
         }
+
         public async Task<UsuarioModel> Adicionar(UsuarioModel usuario)
         {
             await _dbContext.Usuarios.AddAsync(usuario);
@@ -33,8 +34,10 @@ namespace dotnet.api.Repositorios
             UsuarioModel usuarioPorId = await BuscarPorId(id);
             if (usuarioPorId == null)
             {
-                throw new Exception($"Usuario para o ID:{id} não foi encontrado no banco de dados.");
+                throw new Exception($"Usuario para o ID: {id} não foi encontrado no banco de dados");
+
             }
+
             usuarioPorId.Nome = usuario.Nome;
             usuarioPorId.Email = usuario.Email;
 
@@ -42,15 +45,15 @@ namespace dotnet.api.Repositorios
             await _dbContext.SaveChangesAsync();
 
             return usuarioPorId;
-
         }
-
         public async Task<bool> Apagar(int id)
         {
+
             UsuarioModel usuarioPorId = await BuscarPorId(id);
+
             if (usuarioPorId == null)
             {
-                throw new Exception($"Usuario para o ID:{id} não foi encontrado no banco de dados.");
+                throw new Exception($"Usuario para o ID:{id} não foi encontrado no banco de dados");
             }
             _dbContext.Usuarios.Remove(usuarioPorId);
             await _dbContext.SaveChangesAsync();

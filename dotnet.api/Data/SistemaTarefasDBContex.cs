@@ -1,4 +1,5 @@
-﻿using dotnet.api.Models;
+﻿using dotnet.api.Data.Map;
+using dotnet.api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace dotnet.api.Data
@@ -15,6 +16,9 @@ namespace dotnet.api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new UsuarioMap());
+            modelBuilder.ApplyConfiguration(new TarefaMap());
+
             base.OnModelCreating(modelBuilder);
         }
     }
